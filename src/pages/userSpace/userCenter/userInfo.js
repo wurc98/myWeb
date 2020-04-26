@@ -105,8 +105,8 @@ export default function () {
           <div className={styles.info_Box}>
             <Descriptions title="用户信息">
               <Descriptions.Item label="用户名">{userInfo.username}</Descriptions.Item>
-              <Descriptions.Item label="手机号码">1810000000</Descriptions.Item>
-              <Descriptions.Item label="注册年龄">Hangzhou, Zhejiang</Descriptions.Item>
+              <Descriptions.Item label="手机号码">{userInfo.phone}</Descriptions.Item>
+              <Descriptions.Item label="注册年龄">{userInfo.date}</Descriptions.Item>
               <Descriptions.Item label="住址">
                 {userInfo.address?userInfo.address:"未填写地址"}
               </Descriptions.Item>

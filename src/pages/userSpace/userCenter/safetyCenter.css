@@ -2,4 +2,11 @@
 .loginFrom{
     width: 30%;
     margin-left: 50px;
+    float: left;
+  }
+
+  .changePasswd{
+    width: 30%;
+    margin-right: 50px;
+    float: right;
   }

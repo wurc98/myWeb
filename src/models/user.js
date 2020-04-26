@@ -13,6 +13,12 @@ function userImg(data) {
 function reg(data) {
     return axios.get('http://localhost:7001/reg', { params: data })
 }
+function updateInfo(data) {
+    return axios.post('http://localhost:7001/updateInfo', data)
+}
+function changePasswd(data){
+    return axios.post('http://localhost:7001/changePasswd',data)
+}
 function backStageLogin(data) {
     return axios.post('http://localhost:7001/administrator/login', data)
 }
@@ -28,7 +34,6 @@ export default {
     state: [],
     effects: {//异步操作
         *login(action, { put, call }) {
-            console.log(123456)
             try {
                 const res = yield call(login, action.payload)
                 if (res.data.code === 1) {
@@ -67,6 +72,31 @@ export default {
                 }
             } catch (error) {
                 message.info("登录失败:" + error)
+            }
+        },
+        //修改个人信息
+        *updateInfo(action, { put, call }) {
+            try {
+                const res = yield call(updateInfo, action.payload)
+                console.log(res)
+                if(res.data.code==1){
+                    localStorage.setItem("info", JSON.stringify(res.data.data))
+                }
+                message.info(res.data.mes)
+            } catch (error) {
+                message.info("修改失败:" + error)
+            }
+        },
+        *changePasswd(action, { put, call }) {
+            try {
+                const res = yield call(changePasswd, action.payload)
+                console.log(res)
+                if(res.data.code==1){
+                    router.push("/login")
+                }
+                message.info(res.data.mes)
+            } catch (error) {
+                message.info("修改失败:" + error)
             }
         },
         //后台登录接口

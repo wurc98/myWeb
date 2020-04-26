@@ -4,8 +4,7 @@ export default {
   routes: [
     {
       path: '/',
-      component: './index',
-      // routes:['./src/routes/PrivateRoute.js']
+      component: './index', // routes:['./src/routes/PrivateRoute.js']
     },
     {
       path: '/login',
