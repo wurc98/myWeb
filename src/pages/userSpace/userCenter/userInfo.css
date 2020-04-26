@@ -1,0 +1,35 @@
+
+.normal {
+  height: 100%;
+}
+.infoBox{
+  width: 90%;
+  margin: auto;
+  height:350px;
+  padding: 0 80px;
+  background-color: #cacaca1f;
+}
+.imgBox{
+  width: 240px;
+  height: 300px;
+  float: left;
+  padding: 30px 60px;
+}
+.img{
+  width:120px;
+  margin-bottom: 20px;
+}
+.info_Box{
+  width:500px;
+  height: 300px;
+  float: left;
+  padding: 20px 40px;
+}
+.icon{
+  margin-left: 10px;
+}
+
+.name{
+  display: inline;
+}
+

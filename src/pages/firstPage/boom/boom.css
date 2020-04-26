@@ -1,0 +1,101 @@
+
+.normal {
+  height: 585px;
+  margin-top: 20px;
+  background-color:  white;
+}
+.title{
+  width: 100%;
+  height: 41px;
+  border-bottom: 1px solid black;
+  line-height: 41px;
+}
+.left{
+  width: 79%;
+  float: left;
+  height: 100%;
+  padding-right: 1%;
+}
+.right{
+  width: 20%;
+  height:476px;
+  float: left;
+}
+.boomPro{
+  width: 100%;
+  height: 476px;
+  overflow: hidden;
+}
+
+.boomPro{
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  margin:auto;
+}
+.bookBox{
+  width: 199px;
+  height: 228px;
+  background-color: #ffff;
+  overflow: hidden;
+  margin-top: 10px;
+  border-right: 1px solid #e6e6e6;
+  border-bottom: 1px solid #e6e6e6;
+  text-align: center;
+}
+.bookBox a{
+  color: black;
+  font-weight: bold;
+}
+.bookBox p{
+  margin-top: 20px;
+  font-size: 12px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  height: 20px;
+  margin-bottom: 0;
+}
+.boxImg p{
+  display: inline;
+  height: 20px;
+  padding: 0 10px;
+}
+.boxImg{
+  display: block;
+  width: 150px;
+  height: 150px;
+  margin: 10px auto 0;
+}
+.price{
+  width: 60%;
+  margin: auto;
+  color:red
+}
+
+.ranking{
+  width: 90%;
+  margin:auto;
+  height: 100%;
+  border: 1px solid green;
+  border-top: transparent;
+}
+.rankingLine{
+  margin: 0 10px;
+  border-bottom:1px dotted #a9a9a9;
+  height: 37px;
+}
+.rankingLine span{
+  display: inline-block;
+  line-height: 36px;
+}
+a{
+  color: black;
+}
+.num{
+  width: 30px;
+  padding-left: 8px;
+}
+.bookname{
+
+}

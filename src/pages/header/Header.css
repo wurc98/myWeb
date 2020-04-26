@@ -1,0 +1,55 @@
+
+.normal {
+  background:#d6d3ef;
+  width: 100%;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  font-size: 14px;
+  display: flex;
+  justify-items: center;
+}
+.leftBox{
+  width: 20%;
+  height: 100%;
+}
+.normal a{
+  color: black;
+}
+.middleBox{
+  width:60%;
+}
+.rightBox{
+  width: 20%;
+  padding-right: 20px;
+  position: relative;
+}
+.login{
+  margin:0 10px;
+}
+.reg{
+  margin-right: 10px;
+}
+.headImg{
+  width: 30px;
+  position: absolute;
+  top: 5px;
+  left:65px;
+  border-radius: 30px;
+}
+.userInfo{
+  width: 120px;
+  height: 100%;
+  margin-left: 100px;
+  text-align: left;
+  padding:0 10px;
+}
+
+.message{
+  position: absolute;
+  top: 3px;
+  right: 30px;
+}
+.a{
+  margin: 0 9px;
+}
