@@ -52,22 +52,6 @@ export default class index extends Component {
                                 theme={this.state.theme}
                             >
                                 <SubMenu
-                                    key="sub1"
-                                    title={
-                                        <span>
-                                            <Icon type="user" />
-                                            个人中心
-                                    </span>
-                                    }
-                                >
-                                    <Menu.Item key="1">
-                                        <Link to='/userSpace'>个人信息</Link>
-                                    </Menu.Item>
-                                    <Menu.Item key="2">
-                                        <Link to='/userSpace/userCenter/safetyCenter'>安全中心</Link>
-                                    </Menu.Item>
-                                </SubMenu>
-                                <SubMenu
                                     key="sub2"
                                     title={
                                         <span>
@@ -77,10 +61,7 @@ export default class index extends Component {
                                     }
                                 >
                                     <Menu.Item key="3">
-                                        <Link to='/backStage/operate/userFind'>用户信息查询</Link>
-                                    </Menu.Item>
-                                    <Menu.Item key="4">
-                                        <Link to='/backStage/operate/userOperate'>用户操作</Link>
+                                        <Link to='/backStage/operate/userFind'>用户管理</Link>
                                     </Menu.Item>
                                 </SubMenu>
                                 <SubMenu
@@ -92,14 +73,11 @@ export default class index extends Component {
                                     </span>
                                     }
                                 >
-                                    <Menu.Item key="6" >
-                                        <Link to='/backStage/operate/books/booksFind'>书籍查询</Link>
+                                    <Menu.Item key="8">
+                                        <Link to='/backStage/operate/books/changedBooks'>书籍操作</Link>
                                     </Menu.Item>
                                     <Menu.Item key="7">
                                         <Link to='/backStage/operate/books/addBooks'>书籍添加</Link>
-                                    </Menu.Item>
-                                    <Menu.Item key="8">
-                                        <Link to='/backStage/operate/books/changedBooks'>书籍操作</Link>
                                     </Menu.Item>
                                 </SubMenu>
                                 <SubMenu

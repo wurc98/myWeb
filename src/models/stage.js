@@ -13,6 +13,9 @@ function addBooks(data) {
 function removeBooks(data) {
     return axios.post('http://localhost:7001/stage/removeBook', data)
 }
+function updateBooks(data) {
+    return axios.post('http://localhost:7001/stage/updateBooks', data)
+}
 function removeOrder(data) {
     return axios.post('http://localhost:7001/stage/removeOrder', data)
 }
@@ -55,6 +58,14 @@ export default {
                     console.log(res)
                     message.info('删除成功')
                 }
+            } catch (error) {
+                message.info(error)
+            }
+        },
+        *updateBooks(action,{put,call}){
+            try {
+                const res = yield call(updateBooks, action.payload)
+                message.info(res.data.mes)
             } catch (error) {
                 message.info(error)
             }

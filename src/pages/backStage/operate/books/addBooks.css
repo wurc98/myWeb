@@ -3,12 +3,22 @@
   height: 100%;
 }
 .form{
-  width:50%;
+  width:70%;
   float: left;
-  margin-right:20%;
 }
 .img{
   width: 10%;
   float: left;
   margin:0 5%;
+}
+.fromBox{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.fromBox>div{
+  width: 350px;
+}
+.btnBox{
+  margin: auto;
 }

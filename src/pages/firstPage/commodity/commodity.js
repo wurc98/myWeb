@@ -17,7 +17,7 @@ export default function() {
           <div className={styles.advers}></div>
           <div className={styles.books_one}>
             <div className={styles.one_left}>
-              <div className={styles.title}>图书分类</div>
+              <div className={styles.title} id="commodity">图书分类</div>
               <div className={styles.booksList}>
                 <span>特色书单</span>
               </div>

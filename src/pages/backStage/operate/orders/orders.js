@@ -53,7 +53,7 @@ class EditableCell extends React.Component {
 
 @connect(
   state => ({
-    allOrders: state.userOrders
+    allOrders: state.orders
   })
 )
 class Order extends Component {
@@ -133,7 +133,7 @@ class Order extends Component {
     this.setState({ searchText: '' });
   };
   componentDidMount() {
-    this.props.dispatch({ type: 'userOrders/userOrders', payload: {account:'zhangsan'} })
+    this.props.dispatch({ type: 'orders/allOrders', payload: {} })
   }
   isEditing = record => record._id === this.state.editingKey;
 
@@ -147,6 +147,7 @@ class Order extends Component {
         return;
       }
       const newData = [...this.props.allOrders];
+      console.log(newData)
       const index = newData.findIndex(item => _id === item._id);
       if (index > -1) {
         const item = newData[index];
@@ -155,10 +156,15 @@ class Order extends Component {
           ...row,
         });
         console.log(newData[index])
+        this.props.dispatch({type:"orders/updateOrders",payload:newData[index]}).then(()=>{
+          this.props.dispatch({ type: 'orders/allOrders', payload: {} })
+        })
         this.setState({ editingKey: '' });
       } else {
         newData.push(row);
-        console.log(newData)
+        this.props.dispatch({type:"orders/updateOrders",payload:newData}).then(()=>{
+          this.props.dispatch({ type: 'orders/allOrders', payload: {} })
+        })
         this.setState({ editingKey: '' });
       }
     });
@@ -170,7 +176,7 @@ class Order extends Component {
   }
   delete(_id){
     this.props.dispatch({type:'stage/removeOrder',payload:{"_id":_id}}).then(res=>{
-      this.props.dispatch({ type: 'userOrders/userOrders', payload: { account: 'zhangsan' } })
+      this.props.dispatch({ type: 'orders/allOrders', payload: {} })
     }).catch(err=>{
       message.info(err)
     })
@@ -228,12 +234,12 @@ class Order extends Component {
             <span>
               <EditableContext.Consumer>
                 {form => (
-                  <a
-                    onClick={() => this.save(form, record._id)}
-                    style={{ marginRight: 8 }}
-                  >
+                  <Popconfirm title="确定修改吗?" onConfirm={() => this.save(form, record._id)}>
+                  <a style={{ marginRight: 8 }} >
                     保存
                   </a>
+                </Popconfirm>
+                  
                 )}
               </EditableContext.Consumer>
               <Popconfirm title="确定取消吗?" onConfirm={() => this.cancel(record._id)}>

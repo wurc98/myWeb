@@ -4,22 +4,33 @@ import { message } from 'antd'
 
 //api请求  接口调用
 
-function userOrders(data) {
-    return axios.post('http://localhost:7001/users/findOrders', data)
+function allOrders(data) {
+    return axios.post('http://localhost:7001/orders/allOrders')
 }
-
+function updateOrders(data) {
+    return axios.post('http://localhost:7001/orders/updateOrders', data)
+}
 export default {
-    namespace: "userOrders",//命名空间,可省略。省略后，文件名为命名空间。
+    namespace: "orders",//命名空间,可省略。省略后，文件名为命名空间。
     state: [],
     effects: {//异步操作
-        *userOrders(action, { put, call }) {
+        *allOrders(action, { put, call }) {
             try {
                 console.log(action.payload)
-                const res = yield call(userOrders, action.payload)
+                const res = yield call(allOrders)
                 if (res.statusText === 'OK') {
                     console.log(res)
-                    yield put({ type: 'initBook', payload: res.data.res })
+                    yield put({ type: 'initBook', payload: res.data })
                 }
+            } catch (err) {
+                message.info(err)
+            }
+        },
+        *updateOrders(action, { put, call }) {
+            try {
+                const res = yield call(updateOrders, action.payload)
+                console.log(res)
+                message.info(res.data.mes)
             } catch (err) {
                 message.info(err)
             }

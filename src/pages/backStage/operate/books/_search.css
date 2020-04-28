@@ -1,0 +1,9 @@
+.search{
+  background-color: white;
+  position: absolute;
+  width: 98%;
+  height: 135px;
+  z-index: 99;
+  top: 0;
+
+}

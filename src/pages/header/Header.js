@@ -31,7 +31,7 @@ export default function Header () {
     </Menu>
   );
   return (
-    <div className={styles.normal}>
+    <div className={styles.normal} id="top">
         <div className={styles.leftBox}>
             <Link to='/' className={styles.a}>罄竹商城网 </Link>
             <Link to='/users' className={styles.a}>罄竹阅读网</Link>

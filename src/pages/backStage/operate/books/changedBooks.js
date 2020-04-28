@@ -1,120 +1,146 @@
 
 import styles from './booksFind.css';
 import {
-  Table, Input, InputNumber, Popconfirm, Form, Row, Col, Button, Icon
+  Table, Input, InputNumber, Popconfirm, Form, Row, Col, Button, Icon, message
 } from 'antd'
 import React, { Component } from 'react';
+import Search from './_search'
 import { connect } from 'dva'
+const EditableContext = React.createContext();
+
+class EditableCell extends React.Component {
+  getInput = () => {
+    if (this.props.inputType === 'number') {
+      return <InputNumber />;
+    }
+    return <Input />;
+  };
+
+  renderCell = ({ getFieldDecorator }) => {
+    const {
+      editing,
+      dataIndex,
+      title,
+      inputType,
+      record,
+      index,
+      children,
+      ...restProps
+    } = this.props;
+    return (
+      <td {...restProps}>
+        {editing ? (
+          <Form.Item style={{ margin: 0 }}>
+            {getFieldDecorator(dataIndex, {
+              rules: [
+                {
+                  required: true,
+                  message: `Please Input ${title}!`,
+                },
+              ],
+              initialValue: record[dataIndex],
+            })(this.getInput())}
+          </Form.Item>
+        ) : (
+            children
+          )}
+      </td>
+    );
+  };
+
+  render() {
+    return <EditableContext.Consumer>{this.renderCell}</EditableContext.Consumer>;
+  }
+}
+
+
 @connect(
   state => ({
     allBooks: state.stage
   })
 )
-class booksFind extends Component {
+class changeBooks extends Component {
   constructor(props) {
     super(props)
     this.state = {
       expand: true,  //展开收起
       //搜索框样式
-      serachStyle: true
+      serachStyle: true,
       //新增用户表单
+      editingKey: ""
     }
   }
   componentDidMount() {
     this.props.dispatch({ type: 'stage/allBooks', payload: {} })
   }
 
-  handleSearch(e) {
-    e.preventDefault();
-    this.props.form.validateFields((err, fieldsValue) => {
-      if (err) {
+  
+
+  isEditing = record => record._id === this.state.editingKey;
+
+  cancel = () => {
+    this.setState({ editingKey: '' });
+  };
+
+  save(form, _id) {
+    form.validateFields((error, row) => {
+      if (error) {
         return;
       }
-      console.log('Received values of form: ', fieldsValue);
-      for (let value in fieldsValue) {
-        console.log(value)
-        if (fieldsValue[value] == '') {
-          fieldsValue[value] = undefined
-        }
+      console.log(row)
+      const newData =this.props.allBooks
+      console.log(newData)
+      const index = newData.findIndex(item => _id === item._id);
+      if (index > -1) {
+        const item = newData[index];
+        newData.splice(index, 1, {
+          ...item,
+          ...row,
+        });
+        console.log(newData[index])
+        this.props.dispatch({ type: 'stage/updateBooks', payload: newData[index] }).then(() => {
+          this.props.dispatch({ type: 'stage/allBooks', payload: {} })
+        })
+        this.setState({ editingKey: '' });
+      } else {
+        newData.push(row);
+        this.props.dispatch({ type: "stage/updateBooks", payload: newData }).then(() => {
+          this.props.dispatch({ type: 'stage/allBooks', payload: {} })
+        })
+        this.setState({ editingKey: '' });
       }
-      console.log(fieldsValue)
-      this.props.dispatch({ type: 'stage/allBooks', payload: fieldsValue })
     });
-  };
-  //清空函数
-  handleReset() {
-    this.props.form.resetFields();
-  };
-  //展开收起函数
-  toggle() {
-    const { expand, serachStyle } = this.state;
-    this.setState(
-      {
-        expand: !expand,
-        serachStyle: !serachStyle
-      }
-    );
-  };
-  //搜索框
-  getFields() {
-    const config = {
-      rules: [{ type: 'object' }],
-    };
-    const count = this.state.expand ? 3 : 6;
-    const { getFieldDecorator } = this.props.form;
-    const children = [];
-    const title = [
-      {
-        label: '书籍id',
-        value: '_id'
-      },
-      {
-        label: '书名',
-        value: 'name'
-      },
-      {
-        label: '作者',
-        value: 'author'
-      },
-      {
-        label: '语言',
-        value: 'language'
-      },
-      {
-        label: '出版社',
-        value: 'press'
-      }
-    ]
-    for (let i = 0; i < title.length; i++) {
-      children.push(
-        <Col span={8} key={i} style={{ display: i < count ? 'block' : 'none' }}>
-          <Form.Item label={title[i].label}>
-            {getFieldDecorator(title[i].value, {
-              rules: [],
-            })(<Input placeholder="请输入..." />)}
-          </Form.Item>
-        </Col>,
-      );
-    }
-    return children;
   }
 
-
+  edit(_id) {
+    this.setState({ editingKey: _id });
+  }
+  delete(_id) {
+    this.props.dispatch({ type: 'stage/removeOrder', payload: { "_id": _id } }).then(res => {
+      // this.props.dispatch({ type: 'userOrders/userOrders', payload: { account: 'zhangsan' } })
+    }).catch(err => {
+      message.info(err)
+    })
+  }
 
   render() {
-    const dataSource = this.props.allBooks
+    const components = {
+      body: {
+        cell: EditableCell,
+      },
+    };
     const columns = [
       {
         title: '书籍id',
         dataIndex: '_id',
         key: '_id',
-        width: 220
+        width: 220,
       },
       {
         title: '书名',
         dataIndex: 'name',
         key: 'name',
-        width: 120
+        width: 120,
       },
       {
         title: '作者',
@@ -125,14 +151,16 @@ class booksFind extends Component {
         title: '书籍描述',
         dataIndex: 'info',
         key: 'info',
-        ellipsis: true
+        ellipsis: true,
+        editable: true
       },
       {
         title: '价格',
         dataIndex: 'price',
         key: 'price',
         width: 80,
-        ellipsis: true
+        ellipsis: true,
+        editable: true
       },
       {
         title: '出版时间',
@@ -147,56 +175,80 @@ class booksFind extends Component {
         ellipsis: true
       },
       {
-        title: '操作',
-        dataIndex: 'action',
-        key: 'action',
-        render: (text, record) => (
-          <span>
+        title: 'operation',
+        dataIndex: 'operation',
+        render: (text, record) => {
+          const { editingKey } = this.state;
+          const editable = this.isEditing(record);
+          return editable ? (
+            <span>
+              <EditableContext.Consumer>
+                {form => (
+                  <Popconfirm title="确定修改吗?" onConfirm={() => this.save(form, record._id)}>
+                    <a style={{ marginRight: 8 }} >
+                      保存
+                  </a>
+                  </Popconfirm>
 
-          </span>
-        )
-      }
+                )}
+              </EditableContext.Consumer>
+              <Popconfirm title="确定取消吗?" onConfirm={() => this.cancel(record._id)}>
+                <a>取消</a>
+              </Popconfirm>
+            </span>
+          ) : (
+              <span >
+                <a onClick={() => this.edit(record._id)} disabled={editingKey !== ''} style={{ marginRight: 8 }}>
+                  修改
+                  </a>
+                <Popconfirm title="确定删除吗?" onConfirm={() => this.delete(record._id)}>
+                  <a disabled={editingKey !== ''}>
+                    删除
+                  </a>
+                </Popconfirm>
+              </span>
+            );
+        },
+      },
     ];
+    const columns1 = columns.map(col => {
+      if (!col.editable) {
+        return col;
+      }
+      return {
+        ...col,
+        onCell: record => ({
+          record,
+          inputType: col.dataIndex === 'num' ? 'number' : 'text',
+          dataIndex: col.dataIndex,
+          title: col.title,
+          editing: this.isEditing(record),
+        }),
+      };
+    });
     //新增表单
     return (
       <div className={styles.normal}>
         <div className={styles.search}>
-          <Form className={styles.form} style={this.state.serachStyle ? {
-            "padding": " 10px"
-          } : {
-              "background": "white", "boxShadow": "-4px 20px 20px 0px #a2a2a247",
-              "padding": " 10px"
-            }} onSubmit={this.handleSearch.bind(this)}>
-            <Row gutter={24}>{this.getFields()}</Row>
-            <Row>
-              <Col span={24} style={{ textAlign: 'right' }}>
-                <Button type="primary" htmlType="submit">
-                  搜索
-                </Button>
-                <Button style={{ marginLeft: 8 }} onClick={this.handleReset.bind(this)}>
-                  清空
-               </Button>
-                <a style={{ marginLeft: 8, fontSize: 12 }} onClick={this.toggle.bind(this)}>
-                  {this.state.expand ? '展开' : '收起'} <Icon type={this.state.expand ? 'up' : 'down'} />
-                </a>
-              </Col>
-            </Row>
-          </Form>
+          <Search />
         </div>
-        <Table
-          dataSource={dataSource}
-          className={styles.table}
-          bordered
-          columns={columns}
-          tableLayout="fixed"
-          pagination={{  // 分页
-            simple: true,
-            pageSize: 4
-          }}
-        />
+        <EditableContext.Provider value={this.props.form}>
+          <Table
+            components={components}
+            dataSource={this.props.allBooks}
+            className={styles.table}
+            bordered
+            columns={columns1}
+            tableLayout="fixed"
+            pagination={{  // 分页
+              simple: true,
+              pageSize: 4
+            }}
+          />
+        </EditableContext.Provider>
       </div>
     );
   }
 }
 
-export default Form.create()(booksFind);
+export default Form.create()(changeBooks);

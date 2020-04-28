@@ -81,7 +81,7 @@ export default function () {
   return (
     <div className={styles.normal}>
       <div className={styles.title}>
-        <h3>特价商品</h3>
+        <h3 id="special">特价商品</h3>
       </div>
       <div className={styles.specialPro}>
         {products.map(el => {

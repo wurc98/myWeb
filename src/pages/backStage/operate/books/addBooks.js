@@ -103,6 +103,9 @@ class addBooks extends Component {
       name:this.state.name
     }
   }
+  clear=()=>{
+    this.props.form.resetFields();
+  }
   render() {
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
@@ -158,7 +161,7 @@ class addBooks extends Component {
           </Upload>
         </div>
         <div className={styles.form}>
-          <Form {...formItemLayout} onSubmit={this.handleSubmit.bind(this)}>
+          <Form {...formItemLayout} className={styles.fromBox} onSubmit={this.handleSubmit.bind(this)}>
             <Form.Item
               label={
                 <span>
@@ -170,7 +173,7 @@ class addBooks extends Component {
               }
             >
               {getFieldDecorator('name', {
-                rules: [{ required: true, message: 'Please input the title of a book!', whitespace: true }],
+                rules: [{ required: true, message: '请输入书名!', whitespace: true }],
               })(<Input />)}
             </Form.Item>
             <Form.Item
@@ -184,7 +187,7 @@ class addBooks extends Component {
               }
             >
               {getFieldDecorator('author', {
-                rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
+                rules: [{ required: true, message: '请输入图书作者名!', whitespace: true }],
               })(<Input />)}
             </Form.Item>
             <Form.Item
@@ -198,7 +201,7 @@ class addBooks extends Component {
               }
             >
               {getFieldDecorator('language', {
-                rules: [{ required: true, message: 'Please input the title of a book!', whitespace: true }],
+                rules: [{ required: true, message: '请输入图书语种!', whitespace: true }],
               })(<Input />)}
             </Form.Item>
             <Form.Item
@@ -212,32 +215,46 @@ class addBooks extends Component {
               }
             >
               {getFieldDecorator('press', {
-                rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
+                rules: [{ required: true, message: '请输入图书出版社!', whitespace: true }],
               })(<Input />)}
             </Form.Item>
             <Form.Item label="出版时间">
               {getFieldDecorator('pubtime', {
-                rules: [{ type: 'object', required: true, message: 'Please select time!' }]
+                rules: [{ type: 'object', required: true, message: '图书出版时间!' }]
               })(<DatePicker />)}
             </Form.Item>
             <Form.Item
               label={
                 <span>
                   定价&nbsp;
-                <Tooltip title="What do you want others to call you?">
+                <Tooltip title="Please fix a price on the book?">
                     <Icon type="question-circle-o" />
                   </Tooltip>
                 </span>
               }
             >
               {getFieldDecorator('price', {
-                rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
+                rules: [{ required: true, message: '图书定价!', whitespace: true }],
               })(<Input />)}
             </Form.Item>
             <Form.Item
               label={
                 <span>
-                  描述&nbsp;
+                  分类&nbsp;
+                <Tooltip title="Please classify the books!">
+                    <Icon type="question-circle-o" />
+                  </Tooltip>
+                </span>
+              }
+            >
+              {getFieldDecorator('classify', {
+                rules: [{ required: true, message: '请选择图书的分类!', whitespace: true }],
+              })(<Input />)}
+            </Form.Item>
+            <Form.Item
+              label={
+                <span>
+                  信息&nbsp;
                 <Tooltip title="What do you want others to call you?">
                     <Icon type="question-circle-o" />
                   </Tooltip>
@@ -245,12 +262,15 @@ class addBooks extends Component {
               }
             >
               {getFieldDecorator('info', {
-                rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
+                rules: [{ required: true, message: '请输入图书信息!', whitespace: true }],
               })(<TextArea />)}
             </Form.Item>
-            <Form.Item {...tailFormItemLayout}>
+            <Form.Item {...tailFormItemLayout} className={styles.btnBox}>
               <Button type="primary" htmlType="submit">
                 提交
+            </Button>
+            <Button style={{"margin-left":"10px"}} onClick={this.clear}>
+                清空
             </Button>
             </Form.Item>
           </Form>
