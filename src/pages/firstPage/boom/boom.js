@@ -106,10 +106,10 @@ export default function () {
     },
   ]
   return (
-    <div className={styles.normal}>
+    <div className={styles.normal} id="boom">
       <div className={styles.left}>
         <div className={styles.title}>
-          <h3 id="boom">畅销商品</h3>
+          <h3 >畅销商品</h3>
         </div>
         <div className={styles.boomPro}>
           {products.map(el => {

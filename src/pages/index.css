@@ -8,7 +8,10 @@ a{
   text-decoration:none;
   color: black;
 }
-
+p{
+  margin: 0;
+  padding: 0;
+}
 li,ul{
   list-style: none;
 }
