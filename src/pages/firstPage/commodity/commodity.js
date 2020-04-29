@@ -14,9 +14,9 @@ export default function() {
   ]
   //最新动态
   let news=[
-    "万种童书，每满100减40",
-    "人文社科，每满100减50",
-    "多彩艺术 名人故事 每满100减50",
+    "万种童书，每满100减40!",
+    "人文社科，每满100减50!",
+    "多彩艺术 名人故事 每满100减50!",
   ]
   //图书分类
   let leftTitle=[
@@ -155,28 +155,18 @@ export default function() {
                 }
               </div>
             </div>
-            <div className={styles.one_mid}>
-              <div className={styles.trotting_box}>
-                <Carousel autoplay>
-                  {
-                    imgList.map((item,index)=>{
-                      return (<img key={item + index} src={item} />)
-                    })
-                  }
-                </Carousel>
-              </div>
-            </div>
+
             <div className={styles.one_right}>
               <div className={styles.news}>
-                <div style={{"width":"100%","height":"28px"}}>
+                <div style={{"width":"100%","height":"36px",}}>
                   <h2>最新动态</h2>
                 </div>
-                <div style={{"width":"100%","height":"100%","fontSize":"13px"}}>
+                <div style={{"width":"100%","height":"60px","fontSize":"13px"}}>
                   <ul>
                     {news.map(el=>{
                       return (
                       <li>
-                        <a>{el}</a>
+                        <a style={{"color":"red"}}>{el}</a>
                       </li>
                       )
                     })}
@@ -187,6 +177,19 @@ export default function() {
                 <div style={{"paddingLeft":"10px"}}>
                   <h2>新书预售</h2>
                 </div>
+                <div>
+                </div>
+              </div>
+            </div>
+            <div className={styles.one_mid}>
+              <div className={styles.trotting_box}>
+                <Carousel autoplay>
+                  {
+                    imgList.map((item,index)=>{
+                      return (<img key={item + index} src={item} />)
+                    })
+                  }
+                </Carousel>
               </div>
             </div>
           </div>
