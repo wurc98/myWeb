@@ -86,7 +86,8 @@ class addBooks extends Component {
         responseType: 'arraybuffer'
       }).then((res) => {
         console.log(res)
-        localStorage.setItem('userImg', 'data:image/png;base64,' + btoa(new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), '')))
+        message.info("封面图片添加成功")
+        this.state.imageUrl='data:image/png;base64,' + btoa(new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''))
       }).catch((Error) => {
         message.info(Error)
       })

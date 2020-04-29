@@ -163,6 +163,14 @@ class changeBooks extends Component {
         editable: true
       },
       {
+        title: '分类',
+        dataIndex: 'classify',
+        key: 'classify',
+        width: 80,
+        ellipsis: true,
+        editable: true
+      },
+      {
         title: '出版时间',
         dataIndex: 'pubtime',
         key: 'pubtime',
@@ -174,6 +182,7 @@ class changeBooks extends Component {
         key: 'press',
         ellipsis: true
       },
+      
       {
         title: 'operation',
         dataIndex: 'operation',

@@ -2,8 +2,24 @@
 import styles from './boom.css';
 import Link from 'umi/link'
 import { Tabs } from 'antd'
+import {connect} from "dva"
+import React, { Component } from 'react';
 const { TabPane } = Tabs;
-export default function () {
+
+@connect(
+  state => ({
+    rankList: state.rank,
+  })
+)
+class Boom extends Component{
+  constructor(props){
+    super(props)
+  }
+  componentDidMount(){
+    this.props.dispatch({type:"rank/rank"})
+  }
+  render(){
+    console.log(this.props.rankList)
   const callback = (key) => {
     console.log(key);
   }
@@ -135,12 +151,12 @@ export default function () {
             <TabPane tab="总榜" key="1">
               <ul>
                 {
-                  ranking1.map((el, index) => {
+                  this.props.rankList.map((el, index) => {
                     return (
                       <li className={styles.rankingLine}>
-                        <Link to={'./products/' + el}>
+                        <Link to={'./products/' + el.name}>
                           <span className={styles.num} style={index < 3 ? { "color": "red" } : {}}>{index + 1}</span>
-                          <span className={styles.bookname}>{el}</span>
+                          <span className={styles.bookname}>{el.name}</span>
                         </Link>
                       </li>
                     )
@@ -176,4 +192,8 @@ export default function () {
       </div>
     </div>
   );
+  }
+  
 }
+
+export default Boom;
