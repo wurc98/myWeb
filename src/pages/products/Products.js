@@ -11,7 +11,8 @@ import { Descriptions, Carousel, Button, Tooltip, List, Avatar, Icon, Form, Inpu
 const { TextArea } = Input;
 @connect(
   state => ({
-    bookInfo: state.products
+    bookInfo: state.products,
+    comments:state.comments
   })
 )
 
@@ -53,11 +54,12 @@ class Products extends Component {
         username:JSON.parse(localStorage.info).username,
         content:this.state.value,
         name:this.props.match.params.name,
+        id:this.props.match.params._id,
         img:JSON.parse(localStorage.info).headerImg
       }
     }).then(res=>{
       console.log(res)
-      this.props.dispatch({ type: 'products/bookInfo', payload: { name: this.props.match.params.name } })
+      this.props.dispatch({ type: 'comments/getComments', payload: { name: this.props.match.params.name } })
       this.setState({
         submitting:false,
         value:""
@@ -76,7 +78,9 @@ class Products extends Component {
 
   //获取书籍信息
   componentDidMount() {
-    this.props.dispatch({ type: 'products/bookInfo', payload: { name: this.props.match.params.name } })
+    this.props.dispatch({ type: 'products/bookInfo', payload: { name: this.props.match.params.name } }).then(res=>{
+    })
+    this.props.dispatch({ type: 'comments/getComments', payload: { name: this.props.match.params.name } })
   }
   //加入购物车
   joinCart(){
@@ -88,6 +92,7 @@ class Products extends Component {
   }
   render() {
     const { comments, submitting, value } = this.state;
+    console.log(this.props.comments)
     const imgList = [
       'http://img3m5.ddimg.cn/56/4/23761145-2_u_3.jpg',
       'http://img3m5.ddimg.cn/56/4/23761145-2_u_3.jpg',
@@ -96,11 +101,6 @@ class Products extends Component {
       'http://img3m5.ddimg.cn/56/4/23761145-2_u_3.jpg',
     ]
     let bookInfo = this.props.bookInfo
-    if (bookInfo.comment == undefined) {
-      bookInfo = {
-        comment: []
-      }
-    }
     //文本域，自定义JSX组件
     return (
       <div>
@@ -139,14 +139,14 @@ class Products extends Component {
           <div className={styles.comment}>
             <div className={styles.commentTitle}>
               <h1 className={styles.title} style={{ "marginLeft": "20px" }}>评论 · </h1>
-              <p className={styles.num}><i>{bookInfo.comment.length}</i></p>
+              <p className={styles.num}><i>{this.props.comments.length}</i></p>
               <h1 className={styles.title}>条</h1>
             </div>
             <div className={styles.commentContexty}>
               <List
                 className="comment-list"
                 itemLayout="horizontal"
-                dataSource={bookInfo.comment}
+                dataSource={this.props.comments}
                 renderItem={item => {
                   let isliked = false;
                   let isdisliked = false;

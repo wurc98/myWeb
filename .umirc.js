@@ -68,6 +68,10 @@ export default {
           path: '/backStage/operate/orders/orders',
           component: './backStage/operate/orders/orders',
         },
+        {
+          path: '/backStage/operate/books/specialBooks',
+          component: './backStage/operate/books/specialBooks',
+        },
       ],
     },
     {

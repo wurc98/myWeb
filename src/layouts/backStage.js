@@ -79,6 +79,9 @@ export default class index extends Component {
                                     <Menu.Item key="7">
                                         <Link to='/backStage/operate/books/addBooks'>书籍添加</Link>
                                     </Menu.Item>
+                                    <Menu.Item key="6">
+                                        <Link to='/backStage/operate/books/specialBooks'>特价图书管理</Link>
+                                    </Menu.Item>
                                 </SubMenu>
                                 <SubMenu
                                     key="sub4"
