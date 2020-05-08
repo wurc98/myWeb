@@ -96,7 +96,7 @@ export default function () {
       <div className={styles.infoBox}>
         <div>
           <div className={styles.imgBox}>
-            <Upload {...props}
+            <Upload {...props} className={styles.imgBox2}
             >
               {imageUrl ? <img src={imageUrl} alt="avatar" title="点击更换图片" style={{ width: '100%' }} /> : uploadButton}
             </Upload>

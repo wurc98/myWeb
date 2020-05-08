@@ -10,6 +10,9 @@ function allOrders(data) {
 function updateOrders(data) {
     return axios.post('http://localhost:7001/orders/updateOrders', data)
 }
+function submit(data) {
+    return axios.post('http://localhost:7001/orders/submit', data)
+}
 export default {
     namespace: "orders",//命名空间,可省略。省略后，文件名为命名空间。
     state: [],
@@ -34,7 +37,17 @@ export default {
             } catch (err) {
                 message.info(err)
             }
-        }
+        },
+        *submit(action, { put, call }) {
+            try {
+                const res = yield call(submit, action.payload)
+                if(res.data.code==1){
+                    message.info(res.data.mes)
+                }
+            } catch (err) {
+                message.info(err)
+            }
+        },
     },
     reducers: {
         initBook(state, action) {

@@ -8,6 +8,10 @@ function getCart(data){
 function updateNum(data){
     return axios.post('http://localhost:7001/carts/updateNum',data)
 }
+function removeCart(data) {
+    return axios.post('http://localhost:7001/carts/removeCart', data)
+}
+
 export default {
     namespace: "shoppingCart",//命名空间,可省略。省略后，文件名为命名空间。
     state: [],
@@ -26,6 +30,17 @@ export default {
                 const res = yield call(updateNum,action.payload)
                 console.log(res)
             }catch(err){
+                message.info(err)
+            }
+        },
+        *removeCart(action, { put, call }) {
+            try {
+                const res = yield call(removeCart, action.payload)
+                console.log(res)
+                if (res.statusText === 'OK') {
+                    message.info(res.data.mes)
+                }
+            } catch (err) {
                 message.info(err)
             }
         }

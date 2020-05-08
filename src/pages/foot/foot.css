@@ -1,4 +1,56 @@
 
 .normal {
-  background: #E879F2;
+  border-top:2px solid #ff2832;
+}
+.foot{
+  width: 970px;
+  height: 78px;
+  margin:auto
+}
+.li li{
+  float: left;
+  margin-right: 60px;
+}
+.title {
+  text-indent: -9999px;
+    display: block;
+    width: 138px;
+    height: 52px;
+    background: url(http://img61.ddimg.cn/upload_img/00660/home/footer_bg.png) 0 0 no-repeat;
+    font-size: 0;
+    line-height: 0;
+    cursor: pointer;
+}
+.title2 {
+  text-indent: -9999px;
+    display: block;
+    width: 138px;
+    height: 52px;
+    background: url(http://img61.ddimg.cn/upload_img/00660/home/footer_bg.png) 0 0 no-repeat;
+    font-size: 0;
+    line-height: 0;
+    cursor: pointer;
+    background-position: 0 -51px;
+}
+.title3 {
+  text-indent: -9999px;
+    display: block;
+    width: 138px;
+    height: 52px;
+    background: url(http://img61.ddimg.cn/upload_img/00660/home/footer_bg.png) 0 0 no-repeat;
+    font-size: 0;
+    line-height: 0;
+    cursor: pointer;
+    background-position: 0 -156px;
+}
+.title4 {
+  text-indent: -9999px;
+    display: block;
+    width: 138px;
+    height: 52px;
+    background: url(http://img61.ddimg.cn/upload_img/00660/home/footer_bg.png) 0 0 no-repeat;
+    font-size: 0;
+    line-height: 0;
+    cursor: pointer;
+    background-position: 0 -103px;
 }

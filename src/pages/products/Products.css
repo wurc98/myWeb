@@ -18,15 +18,20 @@
   width: 286px;
   float: left;
 }
+.img{
+  width: 220px;
+  padding: 20px 10px 0 50px;
+}
 
 .boxInfo{
+  width: 700px;
   float: left;
 }
 
 .btnBox{
   position: absolute;
   padding-left: 286px;
-  bottom: 40px;
+  bottom: 20px;
   width: 100%;
   height: 40px;
   text-align: center;

@@ -1,5 +1,5 @@
 
-import styles from './specialBooks.css';
+import styles from './boomBooks.css';
 import {
   Table, Input, InputNumber, Popconfirm,Drawer , Form, Row, Col, Button, Icon, message
 } from 'antd'
@@ -56,20 +56,20 @@ class EditableCell extends React.Component {
 @connect(
   state => ({
     allBooks: state.stage,
-    specialList: state.special,
+    boomsList: state.booms,
   })
 )
-class SpeicalBooks extends Component {
+class boomBooks extends Component {
   constructor(props) {
     super(props)
     this.state = {
       //新增用户表单
       editingKey: "",
-      addSpecials:[]
+      addBooms:[]
     }
   }
   componentDidMount() {
-    this.props.dispatch({ type: 'special/special', payload: {} })
+    this.props.dispatch({ type: 'booms/booms', payload: {} })
   }
 
 
@@ -152,7 +152,9 @@ class SpeicalBooks extends Component {
       if (error) {
         return;
       }
+      console.log(row)
       const newData =this.props.specialList
+      console.log(newData)
       const index = newData.findIndex(item => _id === item._id);
       if (index > -1) {
         const item = newData[index];
@@ -179,8 +181,8 @@ class SpeicalBooks extends Component {
     this.setState({ editingKey: _id });
   }
   delete(_id) {
-    this.props.dispatch({ type: 'special/removeSpecial', payload: { "_id": _id } }).then(res => {
-      this.props.dispatch({ type: 'special/special', payload: {} })
+    this.props.dispatch({ type: 'booms/removeBooms', payload: { "_id": _id } }).then(res => {
+      this.props.dispatch({ type: 'booms/booms', payload: {} })
     }).catch(err => {
       message.info(err)
     })
@@ -199,13 +201,14 @@ class SpeicalBooks extends Component {
     });
   };
 
-  addSpecials=()=>{
-    this.props.dispatch({type:'special/addSpecials', payload: this.state.addSpecials }).then(res=>{
-      this.props.dispatch({ type: 'special/special', payload: {} })
+  addBooms=()=>{
+    this.props.dispatch({type:'booms/addBooms', payload: this.state.addBooms }).then(res=>{
+      this.props.dispatch({ type: 'booms/booms', payload: {} })
     })
   }
 
   render() {
+    console.log(this.props.boomsList)
     const components = {
       body: {
         cell: EditableCell,
@@ -223,8 +226,7 @@ class SpeicalBooks extends Component {
         title: '书名',
         dataIndex: 'name',
         key: 'name',
-        width: 130,
-        ellipsis: true,
+        width: 120,
         ...this.getColumnSearchProps('name'),
       },
       {
@@ -238,14 +240,6 @@ class SpeicalBooks extends Component {
         dataIndex: 'info',
         key: 'info',
         ellipsis: true,
-      },
-      {
-        title: '特价',
-        dataIndex: 'seckill',
-        key: 'seckill',
-        width: 80,
-        ellipsis: true,
-        editable: true
       },
       {
         title: '分类',
@@ -319,9 +313,6 @@ class SpeicalBooks extends Component {
         }),
       };
     });
-
-
-
     const columns2 = [
       {
         title: '书籍id',
@@ -353,14 +344,12 @@ class SpeicalBooks extends Component {
         name: record.name,
       }),
     };
-    const { addSpecials } = this.state;
 
     //抽屉select
     const rowSelection2 = {
-      addSpecials,
       onChange: (selectedRowKeys, selectedRows) => {
         this.setState({
-          addSpecials:selectedRows
+          addBooms:selectedRows
         })
         console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
       },
@@ -375,9 +364,9 @@ class SpeicalBooks extends Component {
         <EditableContext.Provider value={this.props.form}>
           <Table
             rowSelection={rowSelection} 
-            rowKey={record => record._id}
             components={components}
-            dataSource={this.props.specialList}
+            dataSource={this.props.boomsList}
+            rowKey={record => record._id}
             className={styles.table}
             bordered
             columns={columns1}
@@ -397,22 +386,23 @@ class SpeicalBooks extends Component {
           visible={this.state.visible}
         >
           <Table
-            rowKey={record => record._id}
             rowSelection={rowSelection2} 
             dataSource={this.props.allBooks}
+            rowKey={record => record._id}
             className={styles.table}
             bordered
             columns={columns2}
             tableLayout="fixed"
             pagination={{  // 分页
+              simple: true,
               pageSize: 8
             }}
           />
-          <Button type="primary" className={styles.add} onClick={this.addSpecials}>确定</Button>
+          <Button type="primary" className={styles.add} onClick={this.addBooms}>确定</Button>
         </Drawer>
       </div>
     );
   }
 }
 
-export default Form.create()(SpeicalBooks);
+export default Form.create()(boomBooks);

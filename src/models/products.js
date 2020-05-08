@@ -10,6 +10,7 @@ function joinCarts(data) {
     return axios.post('http://localhost:7001/products/joinCarts', data)
 }
 
+
 export default {
     namespace: "products",//命名空间,可省略。省略后，文件名为命名空间。
     state: [],
@@ -35,7 +36,8 @@ export default {
             } catch (err) {
                 message.info(err)
             }
-        }
+        },
+        
     },
     reducers: {
         initBook(state, action) {

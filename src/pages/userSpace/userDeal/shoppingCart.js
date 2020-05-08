@@ -2,7 +2,8 @@
 import styles from './shoppingCart.css';
 import React, { Component } from 'react';
 import Position from '../../../assets/js/position'
-import { Cascader, Table, Button, InputNumber } from 'antd';
+import code from '../../../assets/img/code.png'
+import { Modal,Cascader, Table, Button, InputNumber } from 'antd';
 import { connect } from 'dva';
 @connect(
   state => ({
@@ -17,24 +18,28 @@ class ShoppingCart extends Component {
       selectedRowKeys: [], // Check here to configure the default column
       loading: false,
       totalPrice: 0,
-      goods:[]
+      goods:[],
+      visible: false,
+      selectedGoods:[]
     };
   }
+  //model取消
+  handleCancel = () => {
+    this.setState({ visible: false });
+  };
   start() {
     this.setState({ loading: true });
     // ajax request after empty completing
-    
-    setTimeout(() => {
+    // this.props.dispatch({type:"orders/submit"},{payload:{})
       this.setState({
-        selectedRowKeys: [],
-        loading: false,
+        visible:true
       });
-    }, 1000);
   };
 
-  onSelectChange(selectedRowKeys) {
+  onSelectChange(selectedRowKeys,selectedRows) {
     this.setState({
-      goods:this.props.cartInfo
+      goods:this.props.cartInfo,
+      selectedGoods:selectedRows
     })
     console.log('selectedRowKeys changed: ', selectedRowKeys);
     this.setState({ selectedRowKeys });
@@ -53,6 +58,9 @@ class ShoppingCart extends Component {
   }
   deletePro(value) {
     console.log(value)
+    this.props.dispatch({type:"shoppingCart/removeCart", payload:{account:JSON.parse(localStorage.info).account,name:value}}).then(()=>{
+      this.props.dispatch({ type: 'shoppingCart/getCart', payload: { account: JSON.parse(localStorage.info).account } })
+    })
   }
   changePage() {
 
@@ -138,6 +146,18 @@ class ShoppingCart extends Component {
             }}
           />
         </div>
+        <Modal
+          visible={this.state.visible}
+          title="请支付..."
+          onCancel={this.handleCancel}
+          footer={null}
+          zIndex={1000}
+        >
+          <img style={{"width":"150px"}} src={code}/>
+          总价：￥{this.state.totalPrice}
+          <br/>
+          <h2>祝您购物愉快~</h2>
+        </Modal>
       </div>
     )
   }

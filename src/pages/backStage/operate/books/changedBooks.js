@@ -116,8 +116,8 @@ class changeBooks extends Component {
     this.setState({ editingKey: _id });
   }
   delete(_id) {
-    this.props.dispatch({ type: 'stage/removeOrder', payload: { "_id": _id } }).then(res => {
-      // this.props.dispatch({ type: 'userOrders/userOrders', payload: { account: 'zhangsan' } })
+    this.props.dispatch({ type: 'stage/removeBooks', payload: { "_id": _id } }).then(res => {
+      this.props.dispatch({ type: 'stage/allBooks', payload: {} })
     }).catch(err => {
       message.info(err)
     })
@@ -245,6 +245,7 @@ class changeBooks extends Component {
           <Table
             components={components}
             dataSource={this.props.allBooks}
+            rowKey={record => record._id}
             className={styles.table}
             bordered
             columns={columns1}

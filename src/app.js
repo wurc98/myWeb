@@ -1,5 +1,4 @@
 import router from 'umi/router';
-import {history}   from "umi"
 export const dva = {
   config: {
     onError(err) {
@@ -9,13 +8,3 @@ export const dva = {
   },
 };
 
-
-export function render(oldRender) {
-  console.log(history)
-  if (localStorage.info) {
-    oldRender();
-  } else {
-    router.push('/login')
-    oldRender();
-  }
-}

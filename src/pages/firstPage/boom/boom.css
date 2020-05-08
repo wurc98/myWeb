@@ -93,9 +93,16 @@ a{
   color: black;
 }
 .num{
+  display: block;
+  float: left;
   width: 30px;
   padding-left: 8px;
 }
 .bookname{
-
+  display: block;
+  float: left;
+  width: 170px;
+  height: 37px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

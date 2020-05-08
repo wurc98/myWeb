@@ -8,9 +8,14 @@ import { Menu, Dropdown, Icon ,message } from 'antd';
 import router from 'umi/router'
 export default function Header () {
   let info={};
+  let AdministratorInfo={};
   if(typeof localStorage.info == 'string'){
     info=JSON.parse(localStorage.info)
   };
+  if(typeof localStorage.AdministratorInfo == 'string'){
+    AdministratorInfo=JSON.parse(localStorage.AdministratorInfo)
+  };
+  console.log(AdministratorInfo)
   const onClick = ({ key }) => {
     if(key==2){
       localStorage.clear();
@@ -23,6 +28,15 @@ export default function Header () {
       <Menu.Item key="1">
         <Link to='/userSpace'>个人空间</Link>
       </Menu.Item>
+      <Menu.Item key="2">
+        <a target="_blank" rel="noopener noreferrer" >
+          退出登录
+        </a>
+      </Menu.Item>
+    </Menu>
+  );
+  const menu2 = (
+    <Menu onClick={onClick}>
       <Menu.Item key="2">
         <a target="_blank" rel="noopener noreferrer" >
           退出登录
@@ -52,12 +66,29 @@ export default function Header () {
                 </Dropdown>
               </div>
               <div className={styles.message}><NoticeIcon count={3}/></div>
-          </div>):(
+          </div>)
+          :AdministratorInfo.username?(
+            <div className={styles.rightBox}>
+              <div className={styles.rightBox}>
+                <img src={
+                  localStorage.userImg?localStorage.userImg:headImg
+                } className={styles.headImg}/>
+                <div className={styles.userInfo}>
+                  <Dropdown overlay={menu2}>
+                    <a className="ant-dropdown-link" href="#">
+                      {AdministratorInfo.username}<Icon type="down" />
+                    </a>
+                  </Dropdown>
+                </div>
+              </div>
+            </div>
+          ):(
             <div className={styles.rightBox}>
               <Link className={styles.login} to='/login'>登录</Link>
               <Link className={styles.reg} to='/reg'>注册</Link>
             </div>
           )
+          
         }
         
     </div>

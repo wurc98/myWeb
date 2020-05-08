@@ -1,0 +1,11 @@
+
+.normal {
+}
+.code {
+  position:absolute;
+  right: 100px;
+  height: 130px;
+  width: 130px;
+  top: 65px;
+  background-color: red;
+}

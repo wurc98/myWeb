@@ -13,6 +13,51 @@ export default function () {
     'http://img62.ddimg.cn/2020/2/12/2020021218103443765.jpg',
     'http://img62.ddimg.cn/2020/2/12/2020021218103443765.jpg'
   ]
+  //新书推荐
+  let newBooks=[
+    {
+      name:"当你学会独处",
+      author:"周国平",
+      price:"38.8",
+      img:"http://img3m8.ddimg.cn/70/15/28522168-1_l_3.jpg"
+    },
+    {
+      name:"陪孩子终身成长",
+      author:"樊登",
+      price:"42.4",
+      img:"http://img3m0.ddimg.cn/50/21/28529870-1_l_5.jpg"
+    },
+    {
+      name:"想点大事·法律是中思维方式",
+      author:"刘涵",
+      price:"54.51",
+      img:"http://img3m9.ddimg.cn/23/3/28536179-1_l_6.jpg"
+    },
+    {
+      name:"三十岁·一切刚刚开始",
+      author:"李尚龙",
+      price:"34.36",
+      img:"http://img3m9.ddimg.cn/75/2/28531479-1_l_5.jpg"
+    },
+    {
+      name:"华胥引",
+      author:"唐七",
+      price:"59.34",
+      img:"http://img3m6.ddimg.cn/60/30/28533246-1_l_9.jpg"
+    },
+    {
+      name:"蒲公英数学",
+      author:"[美]托马斯·欧布里恩",
+      price:"592.70",
+      img:"http://img3m1.ddimg.cn/45/4/28526301-1_l_6.jpg"
+    },
+    {
+      name:"银火箭少年科幻系列",
+      author:"（英）阿瑟·克拉",
+      price:"202.20",
+      img:"http://img3m6.ddimg.cn/97/1/28531996-1_l_8.jpg"
+    }
+  ]
   //最新动态
   let news = [
     "万种童书，每满100减40!",
@@ -98,11 +143,15 @@ export default function () {
     {
       title: "人文社科",
       content: ["历史", "古籍", "哲学/宗教", "文化", "政治/军事", "法律", "社会科学", "心理学"]
+    },
+    {
+      title: "生活",
+      content: ["两性", "孕期", "育儿", "保健", "运动", "美妆", "手工", "美食","旅游","休闲","家居"]
     }
   ]
   //鼠标移至分类
   let over = (index) => {
-    console.log(index)
+    // console.log(index)
   }
   let leave = function () {
     setDisable(!disable)
@@ -125,7 +174,6 @@ export default function () {
                     })}
                   </span>)
                 } else if (el.content == undefined) {
-                  console.log(el)
                   return (<span onMouseEnter={over(index)}><a>{el.title}</a></span>)
                 } else {
                   return (
@@ -188,6 +236,27 @@ export default function () {
                   })
                 }
               </Carousel>
+              <div className={styles.recommened}>
+                <h2>新书推荐</h2>
+                <ul className={styles.newBooksRecommened}>
+                  {newBooks.map((el,index)=>{
+                    if(index==newBooks.length-1){
+                      return (<li style={{"marginRight":"0px"}}>
+                        <img style={{"width":"100px"}} src={el.img} />
+                        <p className={styles.name}>{el.name}</p>
+                        <p className={styles.author}>{el.author}</p>
+                        <p className={styles.price}>￥{el.price}</p>
+                        </li>)
+                    }
+                    return (<li>
+                    <img style={{"width":"100px"}} src={el.img} />
+                    <p className={styles.name}>{el.name}</p>
+                    <p className={styles.author}>{el.author}</p>
+                    <p className={styles.price}>￥{el.price}</p>
+                    </li>)
+                  })}
+                </ul>
+              </div>
             </div>
           </div>
         </div>

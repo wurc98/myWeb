@@ -100,7 +100,15 @@ class ChangeUserInfo extends Component {
                 </Tooltip>
               </span>
             }>
-              {getFieldDecorator('phone', { initialValue: userInfo.phone })(<Input />)}
+              {getFieldDecorator('phone', { 
+                initialValue: userInfo.phone,
+                rules:[
+                  {
+                    required: true,
+                    message: '请输入手机号码!',
+                  },
+                  { pattern: new RegExp(/^1[3456789]\d{9}$/), message:"手机号码格式不正确"},
+                  ]})(<Input />)}
             </Form.Item>
             <Form.Item {...tailFormItemLayout}>
               <Button type="primary" htmlType="submit">

@@ -32,6 +32,7 @@ export default class index extends Component {
         });
     };
     render() {
+        console.log(this.props)
         return (
             <div>
                 <Layout>
@@ -67,7 +68,7 @@ export default class index extends Component {
                                         <Link to='/userSpace/userCenter/safetyCenter'>安全中心</Link>
                                     </Menu.Item>
                                 </SubMenu>
-                                <SubMenu
+                                {/* <SubMenu
                                     key="sub2"
                                     title={
                                         <span>
@@ -79,8 +80,8 @@ export default class index extends Component {
                                     <Menu.Item key="3">商品收藏</Menu.Item>
                                     <Menu.Item key="4">店铺收藏</Menu.Item>
                                     <Menu.Item key="5">电子书收藏</Menu.Item>
-                                </SubMenu>
-                                <SubMenu
+                                </SubMenu> */}
+                                {/* <SubMenu
                                     key="sub3"
                                     title={
                                         <span>
@@ -91,7 +92,7 @@ export default class index extends Component {
                                 >
                                     <Menu.Item key="6">优惠券劵/卡</Menu.Item>
                                     <Menu.Item key="7">余额</Menu.Item>
-                                </SubMenu>
+                                </SubMenu> */}
                                 <SubMenu
                                     key="sub4"
                                     title={
@@ -104,7 +105,7 @@ export default class index extends Component {
                                     <Menu.Item key="8">
                                     <Link to='/userSpace/userDeal/order'>我的订单</Link>
                                     </Menu.Item>
-                                    <Menu.Item key="9">交易记录</Menu.Item>
+                                    {/* <Menu.Item key="9">交易记录</Menu.Item> */}
                                     <Menu.Item key="10">
                                     <Link to='/userSpace/userDeal/shoppingCart'>购物车</Link>
                                     </Menu.Item>

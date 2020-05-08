@@ -32,6 +32,7 @@ export default class index extends Component {
         });
     };
     render() {
+        console.log(this.props.children)
         return (
             <div>
                 <Layout>
@@ -82,6 +83,10 @@ export default class index extends Component {
                                     <Menu.Item key="6">
                                         <Link to='/backStage/operate/books/specialBooks'>特价图书管理</Link>
                                     </Menu.Item>
+                                    <Menu.Item key="5">
+                                        <Link to='/backStage/operate/books/boomBooks'>畅销图书管理</Link>
+                                    </Menu.Item>
+                                    
                                 </SubMenu>
                                 <SubMenu
                                     key="sub4"

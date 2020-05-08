@@ -1,5 +1,6 @@
 
 import React, { Component } from 'react';
+import Account from "./account"
 import styles from './Products.css';
 import Link from 'umi/link'
 import Header from '../header/Header'
@@ -7,7 +8,7 @@ import SearchBox from '../firstPage/search/SearchBox'
 import Nav from '../firstPage/commodity/nav/Nav'
 import { connect } from 'dva'
 import axios from 'axios'
-import { Descriptions, Carousel, Button, Tooltip, List, Avatar, Icon, Form, Input, Comment, message } from 'antd'
+import {Modal, Descriptions, Carousel, Button, Tooltip, List, Avatar, Icon, Form, Input, Comment, message } from 'antd'
 const { TextArea } = Input;
 @connect(
   state => ({
@@ -23,8 +24,20 @@ class Products extends Component {
       comments: [],
       submitting: false,
       value: '',
+      modal1Visible: false,
+    modal2Visible: false,
     }
   }
+
+  //弹窗
+  setModal1Visible(modal1Visible) {
+    this.setState({ modal1Visible });
+  }
+
+  setModal2Visible(modal2Visible) {
+    this.setState({ modal2Visible });
+  }
+
   //点赞、踩回调函数
   like() {
     console.log(1111)
@@ -88,18 +101,13 @@ class Products extends Component {
       message.info("请登录~~")
       return
     }
-    this.props.dispatch({type:'products/joinCarts',payload:{account:JSON.parse(localStorage.info).account,name:this.props.match.params.name,price:this.props.bookInfo.price}})
+    this.props.dispatch({type:'products/joinCarts',payload:{account:JSON.parse(localStorage.info).account,...this.props.bookInfo}})
   }
   render() {
-    const { comments, submitting, value } = this.state;
+    const { submitting, value } = this.state;
     console.log(this.props.comments)
-    const imgList = [
-      'http://img3m5.ddimg.cn/56/4/23761145-2_u_3.jpg',
-      'http://img3m5.ddimg.cn/56/4/23761145-2_u_3.jpg',
-      'http://img3m5.ddimg.cn/56/4/23761145-2_u_3.jpg',
-      'http://img3m5.ddimg.cn/56/4/23761145-2_u_3.jpg',
-      'http://img3m5.ddimg.cn/56/4/23761145-2_u_3.jpg',
-    ]
+    console.log(this.props.bookInfo)
+    
     let bookInfo = this.props.bookInfo
     //文本域，自定义JSX组件
     return (
@@ -109,15 +117,11 @@ class Products extends Component {
           <SearchBox />
           <Nav />
           <div className={styles.infoBox}>
-            <Carousel autoplay className={styles.boxImg}>
-              {
-                imgList.map((item, index) => {
-                  return (<img className={styles.img} key={item + index} src={item} />)
-                })
-              }
-            </Carousel>
+            <div  className={styles.boxImg}>
+                  <img className={styles.img} src={"http://localhost:7001/public/products/"+bookInfo.img} />
+            </div>
             <div className={styles.boxInfo}>
-              <Descriptions bordered title="Custom Size" size='small' >
+              <Descriptions bordered title="图书介绍" size='small' >
                 <Descriptions.Item label="书名">{bookInfo.name}</Descriptions.Item>
                 <Descriptions.Item label="作者">{bookInfo.author}</Descriptions.Item>
                 <Descriptions.Item label="语种">{bookInfo.language}</Descriptions.Item>
@@ -132,7 +136,7 @@ class Products extends Component {
               </Descriptions>
             </div>
             <div className={styles.btnBox}>
-              <Button type="primary" className={styles.btn}>购买</Button>
+              <Button type="primary" onClick={() => this.setModal1Visible(true)} className={styles.btn}>购买</Button>
               <Button type="danger" onClick={this.joinCart.bind(this)}>加入购物车</Button>
             </div>
           </div>
@@ -236,6 +240,16 @@ class Products extends Component {
             </div>
           </div>
         </div>
+        <Modal
+          title="结算"
+          style={{ top: 20 }}
+          visible={this.state.modal1Visible}
+          onOk={() => this.setModal1Visible(false)}
+          onCancel={() => this.setModal1Visible(false)}
+          footer={null}
+        >
+          <Account bookInfo={bookInfo}/>
+        </Modal>
       </div>
     );
   }

@@ -1,4 +1,3 @@
-// ref: https://umijs.org/config/
 export default {
   treeShaking: true,
   routes: [
@@ -25,18 +24,22 @@ export default {
         {
           path: '/userSpace/',
           component: 'userSpace/userCenter/userInfo',
+          Routes: ['./src/routes/PrivateRoute.js'],
         },
         {
           path: '/userSpace/userCenter/safetyCenter',
           component: './userSpace/userCenter/safetyCenter',
+          Routes: ['./src/routes/PrivateRoute.js'],
         },
         {
           path: '/userSpace/userDeal/shoppingCart',
           component: './userSpace/userDeal/shoppingCart',
+          Routes: ['./src/routes/PrivateRoute.js'],
         },
         {
           path: '/userSpace/userDeal/order',
           component: './userSpace/userDeal/order',
+          Routes: ['./src/routes/PrivateRoute.js'],
         },
       ],
     },
@@ -45,41 +48,54 @@ export default {
       component: '../layouts/backStage',
       routes: [
         {
+          path: '/backStage/',
+          component: './backStage/operate/userFind',
+          Routes: ['./src/routes/PrivateRoute.js'],
+        },
+        {
           path: '/backStage/operate/userFind',
           component: './backStage/operate/userFind',
+          Routes: ['./src/routes/PrivateRoute.js'],
         },
         {
           path: '/backStage/operate/userOperate',
           component: './backStage/operate/userOperate',
+          Routes: ['./src/routes/PrivateRoute.js'],
         },
         {
           path: '/backStage/operate/books/booksFind',
           component: './backStage/operate/books/booksFind',
+          Routes: ['./src/routes/PrivateRoute.js'],
         },
         {
           path: '/backStage/operate/books/addBooks',
           component: './backStage/operate/books/addBooks',
+          Routes: ['./src/routes/PrivateRoute.js'],
         },
         {
           path: '/backStage/operate/books/changedBooks',
           component: './backStage/operate/books/changedBooks',
+          Routes: ['./src/routes/PrivateRoute.js'],
         },
         {
           path: '/backStage/operate/orders/orders',
           component: './backStage/operate/orders/orders',
+          Routes: ['./src/routes/PrivateRoute.js'],
         },
         {
           path: '/backStage/operate/books/specialBooks',
           component: './backStage/operate/books/specialBooks',
+          Routes: ['./src/routes/PrivateRoute.js'],
         },
-      ],
+        {
+          path: '/backStage/operate/books/boomBooks',
+          component: './backStage/operate/books/boomBooks',
+          Routes: ['./src/routes/PrivateRoute.js'],
+        },
+      ], // Routes: ['./src/routes/PrivateRoute.js'],
     },
     {
-      path: './backStage',
-      component: './backStage/backStage',
-    },
-    {
-      path: './backStage/AdministratorLogin',
+      path: './AdministratorLogin',
       component: './backStage/AdministratorLogin',
     },
   ],

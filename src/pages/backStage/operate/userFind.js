@@ -45,15 +45,6 @@ class userFind extends Component {
       }
     ]
     for (let i = 0; i < title.length; i++) {
-      if (i == 2) {
-        children.push(
-          <Col span={8} key={i} style={{ display: i < count ? 'block' : 'none' }}>
-            <Form.Item label={title[i].label}>
-              {getFieldDecorator(title[i].value, config)(<DatePicker placeholder='请选择时间' />)}
-            </Form.Item>
-          </Col>)
-        continue
-      }
       children.push(
         <Col span={8} key={i} style={{ display: i < count ? 'block' : 'none' }}>
           <Form.Item label={title[i].label}>
@@ -73,8 +64,7 @@ class userFind extends Component {
         return;
       }
       const values = {
-        ...fieldsValue,
-        'date': fieldsValue['date'] ? fieldsValue['date'].format('YYYY-MM-DD') : null
+        ...fieldsValue
       };
       console.log('Received values of form: ', values);
       for (let value in values) {

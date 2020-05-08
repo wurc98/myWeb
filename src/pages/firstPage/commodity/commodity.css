@@ -41,7 +41,6 @@ p{
 .one_mid{
   height: 100%;
   margin:0 230px 0 200px;
-  background-color: brown;
   overflow: hidden;
 }
 .one_right{
@@ -122,4 +121,29 @@ p{
   padding-top:6px;
   margin-bottom:9px;
   border: 1px solid #eaeaea;
+}
+.recommened{
+  height: 200px;
+  margin-top: 13px;
+
+}
+.newBooksRecommened li{
+  float: left;
+  width: 100px;
+  overflow: hidden;
+  margin-right: 20px;
+  text-align: center;
+}
+.author{
+  font-size: 12;
+  color: gray;
+  height: 21px;
+  overflow: hidden;
+}
+.price{
+  color: red;
+}
+.name{
+  height: 21px;
+  overflow: hidden;
 }

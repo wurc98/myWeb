@@ -105,7 +105,7 @@ export default {
                 const res = yield call(backStageLogin, action.payload)
                 if (res.data.code === 1) {
                     localStorage.setItem("AdministratorInfo", JSON.stringify(res.data.data))
-                    router.push('/')
+                    router.push('/backStage')
                 }
                 if (res.data.code === 0) {
                     message.info("密码错误，请重新输入密码!")

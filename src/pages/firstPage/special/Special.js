@@ -93,15 +93,15 @@ class Special extends Component {
         <h3 id="special" > 特价商品 </h3>
       </div>
       <div className={styles.specialPro} > {
-          products.map(el => {
+          this.props.specialList.map(el => {
             return (<div className={styles.bookBox} >
               <Link to={`/products/` + el.name} className={styles.boxImg} >
-                <img src={el.img} />
+                <img style={{"width":"150px"}} src={"http://localhost:7001/public/products/"+el.img} />
                 <p> {el.name}</p>
               </Link>
               <p> {el.info} </p>
               <div className={styles.price} >
-                {"特价 ￥：" + el.price}
+                {"特价 ￥：" + el.seckill}
               </div>
             </div >
             )

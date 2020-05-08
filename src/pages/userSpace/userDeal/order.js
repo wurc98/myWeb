@@ -17,24 +17,24 @@ class ShoppingCart extends Component {
       selectedRowKeys: [], // Check here to configure the default column
       loading: false,
       totalPrice: 0,
-      goods:[]
+      goods: []
     };
   }
   start() {
     this.setState({ loading: true });
     // ajax request after empty completing
-    
+    console.log(this.state.selectedRowKeys)
     setTimeout(() => {
       this.setState({
         selectedRowKeys: [],
         loading: false,
       });
-    }, 1000);
-  };
+    });
+    };
 
   onSelectChange(selectedRowKeys) {
     this.setState({
-      goods:this.props.cartInfo
+      goods: this.props.cartInfo
     })
     console.log('selectedRowKeys changed: ', selectedRowKeys);
     this.setState({ selectedRowKeys });
@@ -46,7 +46,7 @@ class ShoppingCart extends Component {
     this.setState({ totalPrice: price })
   };
   componentDidMount() {
-    this.props.dispatch({ type: 'shoppingCart/getCart', payload: { account: JSON.parse(localStorage.info).account } })    
+    this.props.dispatch({ type: 'shoppingCart/getCart', payload: { account: JSON.parse(localStorage.info).account } })
   }
   onChange(value) {
     console.log(value);
@@ -59,8 +59,8 @@ class ShoppingCart extends Component {
   }
   onChangeNum(name, value) {
     console.log('changed', value, name);
-    this.props.dispatch({ type: 'shoppingCart/updateNum', payload: { account: JSON.parse(localStorage.info).account, name, num: value } }).then((res)=>{
-      this.props.dispatch({ type: 'shoppingCart/getCart', payload: { account: JSON.parse(localStorage.info).account } }) 
+    this.props.dispatch({ type: 'shoppingCart/updateNum', payload: { account: JSON.parse(localStorage.info).account, name, num: value } }).then((res) => {
+      this.props.dispatch({ type: 'shoppingCart/getCart', payload: { account: JSON.parse(localStorage.info).account } })
     })
   }
   render() {
